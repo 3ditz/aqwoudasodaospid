@@ -100,7 +100,7 @@ function autotap1()
     spawn(function() 
         while getgenv().autotap == true do
             game:GetService("ReplicatedStorage").Events.ClientClick:FireServer()
-            wait(0.20)
+            wait()
         end
     end)
 end
