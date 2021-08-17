@@ -1,6 +1,6 @@
 getgenv().autotap = false;
 _G.antiafk = false;
-getgenv().autobuy = false;
+
 
 local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/AikaV3rm/UiLib/master/Lib.lua')))()
 
@@ -18,12 +18,76 @@ b:Toggle("Antiafk",function(bool)
 end)
 
 
+
+SelectedPlayer = nil
+b:Button("Tp to Player",function()
+    if SelectedPlayer then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[SelectedPlayer].Character.HumanoidRootPart.CFrame
+    end
+end)
+
+players = game.Players:GetChildren()
+playertp = b:Dropdown("Select Player",players,true,function(person)
+    SelectedPlayer = person
+end)
+
+b:Button("Tp List Refresh",function()
+    players = game.Players:GetChildren()
+    playertp:Refresh(players)
+end)
+
+
+
+
+
+cases = {}
+Crate = "Starter"
+caseblacklist = {"Noobish","Rares","Big Bux","Prosperous","Extravagant"}
+for i,v in pairs(game.Players.LocalPlayer.PlayerGui.Gui.Frames.Cases.Main.List.Holder:GetChildren()) do
+    if v:IsA("Frame") and not table.find(caseblacklist,v.Name) then
+        table.insert(cases,v.Name) 
+    end
+end
+
+function autobuy1() 
+    spawn(function() 
+        while getgenv().autobuy == true do
+            local args = {
+                [1] = Crate
+            }
+
+            game:GetService("ReplicatedStorage").Events.OpenCase:InvokeServer(unpack(args))
+            wait (0.20)
+        end
+    end)
+end
+
 b:Toggle("AutoCase Open",function(bool)
     getgenv().autobuy = bool
     if bool then
         autobuy1();
     end
 end)
+
+b:Dropdown("Select Case",cases,true,function(case)
+    Crate = case
+end)
+
+function autobuy1() 
+    spawn(function() 
+        while getgenv().autobuy == true do
+            local args = {
+                [1] = Crate
+            }
+
+            game:GetService("ReplicatedStorage").Events.OpenCase:InvokeServer(unpack(args))
+            wait (0.20)
+        end
+    end)
+end
+
+
+
 
 b:Toggle("AutoSell",function(bool)
     shared.toggle = bool
@@ -55,18 +119,7 @@ b:Button("QuickSell All",function()
 end)
 
 
-function autobuy1() 
-    spawn(function() 
-        while getgenv().autobuy == true do
-            local args = {
-                [1] = "Starter"
-            }
-            
-            game:GetService("ReplicatedStorage").Events.OpenCase:InvokeServer(unpack(args))
-            wait (0.20)
-        end
-    end)
-end
+
 
 minval = 50000
 game.Players.LocalPlayer.PlayerGui.Gui.Frames.Inventory.SubInventory.Holder.List.ChildAdded:Connect(function(child)
