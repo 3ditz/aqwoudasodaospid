@@ -41,7 +41,18 @@ function autotap1()
     end)
 end
 
-
+b:Button("QuickSell All",function()
+    for i,v in pairs(game.Players.LocalPlayer.PlayerGui.Gui.Frames.Inventory.SubInventory.Holder.List:GetChildren()) do
+        wait()
+        if v:IsA("Frame") then
+            x = v:WaitForChild("ItemValue").Text:gsub("[^%-%d]", "")
+            print(tonumber(x))
+            if tonumber(x) < minval then
+                game.ReplicatedStorage.Events.InventoryActions:InvokeServer("QuickSell",v.Name)
+            end
+        end
+    end
+end)
 
 
 function autobuy1() 
