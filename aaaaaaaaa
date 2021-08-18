@@ -21,14 +21,6 @@ b:Toggle("Autoclick",function(bool)
     end
 end)
 
-b:Toggle("Anti Afk",function(bool)
-    getgenv().autotap = bool
-    if bool then
-        antiafk1();
-    end
-end)
-
-
 
 SelectedPlayer = nil
 b:Button("Tp to Player",function()
@@ -46,7 +38,6 @@ b:Button("Tp List Refresh",function()
     players = game.Players:GetChildren()
     playertp:Refresh(players)
 end)
-
 
 
 
@@ -99,7 +90,6 @@ end
 
 
 
-
 b:Toggle("AutoSell",function(bool)
     shared.toggle = bool
     _G.AutoSell = bool
@@ -141,3 +131,9 @@ game.Players.LocalPlayer.PlayerGui.Gui.Frames.Inventory.SubInventory.Holder.List
         game.ReplicatedStorage.Events.InventoryActions:InvokeServer("QuickSell",child.Name)
     end
 end)
+
+
+
+
+
+
