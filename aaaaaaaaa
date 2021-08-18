@@ -138,15 +138,14 @@ end)
 
 function antiafk1()
     spawn(function()
-        while getgenv().antiafk == true do
-            local vu = game:GetService("VirtualUser")
-        game:GetService("Players").LocalPlayer.Idled:connect(function()
-           vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-           wait(1)
-           vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-        end)
+        while getgenv()antiafk == true do
+            pcall(function()
+                repeat wait() until game:GetService("Players").LocalPlayer
+                for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
+                    v:Disable()
+                end
+            end)
         end
-    end) 
+        
+    end)
 end
-
-
