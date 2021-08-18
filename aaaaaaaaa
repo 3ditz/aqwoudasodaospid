@@ -145,7 +145,7 @@ function antiafk1()
                     v:Disable()
                 end
             end)
-        end
+        end)
         
     end)
 end
