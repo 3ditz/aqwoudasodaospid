@@ -144,8 +144,8 @@ function antiafk1()
                 for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
                     v:Disable()
                 end
-            end)
-        end)
+            end
+        end
         
     end)
 end
