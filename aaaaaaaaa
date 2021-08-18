@@ -141,18 +141,3 @@ game.Players.LocalPlayer.PlayerGui.Gui.Frames.Inventory.SubInventory.Holder.List
         game.ReplicatedStorage.Events.InventoryActions:InvokeServer("QuickSell",child.Name)
     end
 end)
-
-
-function antiafk1()
-    spawn(function()
-        while getgenv()antiafk == true do
-            pcall(function()
-                repeat wait() until game:GetService("Players").LocalPlayer
-                for i,v in pairs(getconnections(game:GetService("Players").LocalPlayer.Idled)) do
-                    v:Disable()
-                end
-            end
-        end
-        
-    end)
-end
